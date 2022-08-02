@@ -1,54 +1,67 @@
-import Container from '../components/container'
-import MoreStories from '../components/more-stories'
-import HeroPost from '../components/hero-post'
-import Intro from '../components/intro'
-import Layout from '../components/layout'
+import Layout from '@/components/layout'
 import { getAllPosts } from '../lib/api'
 import Head from 'next/head'
-import { CMS_NAME } from '../lib/constants'
 import Post from '../interfaces/post'
+import { Box, Themed } from 'theme-ui'
+import DateFormatter from '@/components/date-formatter'
+import Link from 'next/link'
+import { ThemedLink } from '@/components/themed-link'
 
 type Props = {
   allPosts: Post[]
 }
 
 export default function Index({ allPosts }: Props) {
-  const heroPost = allPosts[0]
-  const morePosts = allPosts.slice(1)
   return (
-    <>
-      <Layout>
-        <Head>
-          <title>Next.js Blog Example with {CMS_NAME}</title>
-        </Head>
-        <Container>
-          <Intro />
-          {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              author={heroPost.author}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-            />
-          )}
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-        </Container>
-      </Layout>
-    </>
+    <Layout>
+      <Head>
+        <title>f-k.dev</title>
+      </Head>
+      <>
+        <Themed.h1>Привет, я Феликс</Themed.h1>
+        <p>Я фронтенд разработчик. Пишу преимущественно об этом же. Но не только.</p>
+        <Themed.h3>Recent blog posts:</Themed.h3>
+        <ul sx={{ listStyle: 'none', m: 0, p: 0, mb: 6 }}>
+          {allPosts.slice(0, 5).map((post) => (
+            <Box
+              as="li"
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: ['1fr', '80px 1fr'],
+                rowGap: [4, null],
+                alignItems: 'baseline',
+                columnGap: 7,
+                mb: 6,
+              }}
+              key={post.slug}
+            >
+              <DateFormatter
+                dateString={post.date}
+                format="dd.MM.yyyy"
+              />
+              <Link
+                as={`/blog/${post.slug}`}
+                href="/blog/[slug]"
+                passHref
+              >
+                <ThemedLink>{post.title}</ThemedLink>
+              </Link>
+            </Box>
+          ))}
+        </ul>
+        <Link
+          href="/blog"
+          passHref
+        >
+          <ThemedLink>View all blog posts</ThemedLink>
+        </Link>
+      </>
+    </Layout>
   )
 }
 
 export const getStaticProps = async () => {
-  const allPosts = getAllPosts([
-    'title',
-    'date',
-    'slug',
-    'author',
-    'coverImage',
-    'excerpt',
-  ])
+  const allPosts = getAllPosts(['title', 'date', 'slug', 'author', 'coverImage', 'excerpt'])
 
   return {
     props: { allPosts },

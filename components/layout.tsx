@@ -1,21 +1,27 @@
-import Alert from './alert'
-import Footer from './footer'
+import { useThemeUI } from 'theme-ui'
 import Meta from './meta'
+import { Grid, Box, Container } from 'theme-ui'
 
 type Props = {
-  preview?: boolean
   children: React.ReactNode
 }
 
-const Layout = ({ preview, children }: Props) => {
+const Layout = ({ children }: Props) => {
+  const { theme } = useThemeUI()
+
   return (
     <>
       <Meta />
-      <div className="min-h-screen">
-        <Alert preview={preview} />
-        <main>{children}</main>
-      </div>
-      <Footer />
+      <Container>
+        <Grid
+          as="main"
+          gap={2}
+          width={128}
+          repeat="fill"
+        >
+          <Box sx={{ gridColumn: ['1 / -1', '3 / span 5'] }}>{children}</Box>
+        </Grid>
+      </Container>
     </>
   )
 }
