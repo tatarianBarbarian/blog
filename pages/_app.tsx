@@ -6,7 +6,7 @@ import Header from 'components/header'
 import { theme } from '@/styles/theme'
 import Layout from 'components/layout'
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps, ...rest }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Header />

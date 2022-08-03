@@ -1,8 +1,8 @@
 import { Themed } from 'theme-ui'
-import { getAllPosts } from '@/lib/api'
 import Head from 'next/head'
-import Post from '@/interfaces/post'
 import PostPreview from 'components/post-preview'
+import type Post from 'interfaces/post'
+import { getAllPosts } from '@/lib/api'
 
 type Props = {
   allPosts: Post[]
@@ -27,10 +27,9 @@ export default function Index({ allPosts }: Props) {
   )
 }
 
-export const getStaticProps = async () => {
-  const allPosts = getAllPosts(['title', 'date', 'slug', 'author', 'coverImage', 'excerpt'])
+export async function getStaticProps() {
+  const posts = getAllPosts()
+  console.log(posts)
 
-  return {
-    props: { allPosts },
-  }
+  return { props: { allPosts: posts } }
 }

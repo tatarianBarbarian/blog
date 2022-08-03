@@ -1,6 +1,7 @@
 {
-  "printWidth": 120,
+  "printWidth": 80,
   "singleAttributePerLine": true,
   "semi": false,
-  "singleQuote": true
+  "singleQuote": true,
+  "editorconfig": true
 }

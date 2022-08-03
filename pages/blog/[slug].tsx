@@ -1,73 +1,53 @@
-import { useRouter } from 'next/router'
-import ErrorPage from 'next/error'
-import PostBody from 'components/post-body'
-import PostHeader from 'components/post-header'
-import { getPostBySlug, getAllPosts } from '@/lib/api'
-import PostTitle from 'components/post-title'
+import { MDXRemote } from 'next-mdx-remote'
+import { readdirSync, readFileSync } from 'fs'
+import { join } from 'path'
+import { Themed } from 'theme-ui'
 import Head from 'next/head'
-import markdownToHtml from '@/lib/markdownToHtml'
-import type PostType from '@/interfaces/post'
+import { ThemedLink } from 'components/themed-link'
+import { getPostBySlug } from '@/lib/api'
+import Image from 'next/future/image'
+import { MDXToHTML } from '@/lib/MDXToHtml'
 
-type Props = {
-  post: PostType
-  morePosts: PostType[]
+const MDXComponents = {
+  ...Themed,
+  a: ThemedLink,
+  img: (props) => <Image {...props} />,
 }
 
-export default function Post({ post, morePosts }: Props) {
-  const router = useRouter()
-  if (!router.isFallback && !post?.slug) {
-    return <ErrorPage statusCode={404} />
-  }
-  return router.isFallback ? (
-    <PostTitle>Loading…</PostTitle>
-  ) : (
+export default function MdxBlog({ source }) {
+  const { frontmatter } = source
+
+  return (
     <>
-      <article>
-        <Head>
-          <title>{post.title}</title>
-          <meta
-            property="og:image"
-            content={post.ogImage.url}
-          />
-        </Head>
-        <PostHeader
-          title={post.title}
-          date={post.date}
-        />
-        <PostBody content={post.content} />
-      </article>
+      <Head>
+        <title>{frontmatter.title}</title>
+      </Head>
+      <Themed.h1>{frontmatter.title}</Themed.h1>
+      <MDXRemote
+        {...source}
+        components={MDXComponents}
+      />
     </>
   )
 }
 
-type Params = {
-  params: {
-    slug: string
-  }
-}
+export async function getStaticProps({ params }) {
+  const mdx = getPostBySlug(params.slug)
+  const compiled = await MDXToHTML(mdx)
 
-export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, ['title', 'date', 'slug', 'author', 'content', 'ogImage', 'coverImage'])
-  const content = await markdownToHtml(post.content || '')
-
-  return {
-    props: {
-      post: {
-        ...post,
-        content,
-      },
-    },
-  }
+  return { props: { source: compiled } }
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts(['slug'])
+  const posts = readdirSync(join(process.cwd(), '_mdx-posts')).map((i) =>
+    i.replace(/\.mdx$/, '')
+  )
 
   return {
     paths: posts.map((post) => {
       return {
         params: {
-          slug: post.slug,
+          slug: post,
         },
       }
     }),

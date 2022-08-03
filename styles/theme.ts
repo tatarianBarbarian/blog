@@ -73,6 +73,9 @@ export const theme: Theme = {
     h6: {
       fontSize: 1,
     },
+    p: {
+      lineHeight: 1.5,
+    },
   },
   links: {
     nav: {},
