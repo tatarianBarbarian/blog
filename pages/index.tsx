@@ -19,7 +19,7 @@ export default function Index({ allPosts }: Props) {
       <>
         <Themed.h1>Привет, я Феликс</Themed.h1>
         <p>
-          Я фронтенд разработчик. Пишу преимущественно об этом же. Но не только.
+          Фронтенд разработчик. Пишу преимущественно об этом же. Но не только.
         </p>
         <Themed.h3>Recent blog posts:</Themed.h3>
         <ul sx={{ listStyle: 'none', m: 0, p: 0, mb: 6 }}>
