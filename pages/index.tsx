@@ -18,7 +18,9 @@ export default function Index({ allPosts }: Props) {
       </Head>
       <>
         <Themed.h1>Привет, я Феликс</Themed.h1>
-        <p>Я фронтенд разработчик. Пишу преимущественно об этом же. Но не только.</p>
+        <p>
+          Я фронтенд разработчик. Пишу преимущественно об этом же. Но не только.
+        </p>
         <Themed.h3>Recent blog posts:</Themed.h3>
         <ul sx={{ listStyle: 'none', m: 0, p: 0, mb: 6 }}>
           {allPosts.slice(0, 5).map((post) => (
@@ -60,7 +62,7 @@ export default function Index({ allPosts }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const allPosts = getAllPosts(['title', 'date', 'slug', 'author', 'coverImage', 'excerpt'])
+  const allPosts = getAllPosts()
 
   return {
     props: { allPosts },

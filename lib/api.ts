@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync } from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
+import type PostType from '@/interfaces/post'
 
 const postsDirectory = join(process.cwd(), '_mdx-posts')
 
@@ -25,7 +26,12 @@ export function getAllPosts() {
 
       return { ...data, slug }
     })
-    .sort(({ date: d1 }, { date: d2 }) => d1 - d2)
+    .sort(({ date: d1 }: PostType, { date: d2 }: PostType) => {
+      let numDate1 = Date.parse(d1)
+      let numDate2 = Date.parse(d2)
+
+      return numDate1 - numDate2
+    })
 
   return posts
 }

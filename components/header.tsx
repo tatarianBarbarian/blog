@@ -11,7 +11,7 @@ const isActiveNavCategory = (pathname, categoryPath) => {
   return currentCat === reqCat
 }
 
-type NavLinkProps = React.PropsWithChildren & { href: string }
+type NavLinkProps = React.PropsWithChildren & { href?: string }
 
 const NavLink = React.forwardRef((props: NavLinkProps, ref) => {
   const { pathname } = useRouter()
@@ -65,7 +65,15 @@ const Header = () => {
             href="/"
             passHref
           >
-            <a sx={{ ...theme.links.headerNav, cursor: 'pointer', fontWeight: 'normal' }}>Felix Khafizov</a>
+            <a
+              sx={{
+                ...theme.links.headerNav,
+                cursor: 'pointer',
+                fontWeight: 'normal',
+              }}
+            >
+              Felix Khafizov
+            </a>
           </Link>
         </h2>
         <HeaderNav />

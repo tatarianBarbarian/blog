@@ -1,4 +1,4 @@
-import { Themed } from 'theme-ui'
+import { Themed } from '@theme-ui/mdx'
 import Head from 'next/head'
 import { ThemedLink } from 'components/themed-link'
 import { getPostBySlug, getPostSlugs } from '@/lib/api'
@@ -10,8 +10,36 @@ import rehypeExternalLinks from 'rehype-external-links'
 import imageSize from 'rehype-img-size'
 
 const MDXComponents = {
-  ...Themed,
-  a: ThemedLink,
+  p: Themed.p,
+  b: Themed.b,
+  i: Themed.i,
+  h1: Themed.h1,
+  h2: Themed.h2,
+  h3: Themed.h3,
+  h4: Themed.h4,
+  h5: Themed.h5,
+  h6: Themed.h6,
+  pre: Themed.pre,
+  code: Themed.code,
+  ol: Themed.ol,
+  ul: Themed.ul,
+  li: Themed.li,
+  blockquote: Themed.blockquote,
+  hr: Themed.hr,
+  em: Themed.em,
+  table: Themed.table,
+  tr: Themed.tr,
+  th: Themed.th,
+  td: Themed.td,
+  strong: Themed.strong,
+  del: Themed.del,
+  // // mdx
+  inlineCode: Themed.inlineCode,
+  thematicBreak: Themed.thematicBreak,
+  // // other
+  div: Themed.div,
+  // // theme-ui
+  a: (props) => <ThemedLink {...props} />,
   img: (props) => <Image {...props} />,
 }
 
