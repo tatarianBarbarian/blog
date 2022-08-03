@@ -1,8 +1,8 @@
 import { Themed } from 'theme-ui'
-import { getAllPosts } from '../../lib/api'
+import { getAllPosts } from '@/lib/api'
 import Head from 'next/head'
-import Post from '../../interfaces/post'
-import PostPreview from '@/components/post-preview'
+import Post from '@/interfaces/post'
+import PostPreview from 'components/post-preview'
 
 type Props = {
   allPosts: Post[]

@@ -1,8 +1,8 @@
 import Image from 'next/future/image'
-import me from '@/public/kolbaski.jpg'
+import me from 'public/kolbaski.jpg'
 import Head from 'next/head'
 import { Themed } from 'theme-ui'
-import { ThemedLink } from '@/components/themed-link'
+import { ThemedLink } from 'components/themed-link'
 
 export default function About() {
   return (

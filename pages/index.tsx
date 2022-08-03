@@ -1,10 +1,10 @@
 import { getAllPosts } from '../lib/api'
 import Head from 'next/head'
-import Post from '../interfaces/post'
+import Post from '@/interfaces/post'
 import { Box, Themed } from 'theme-ui'
-import DateFormatter from '@/components/date-formatter'
+import DateFormatter from 'components/date-formatter'
 import Link from 'next/link'
-import { ThemedLink } from '@/components/themed-link'
+import { ThemedLink } from 'components/themed-link'
 
 type Props = {
   allPosts: Post[]

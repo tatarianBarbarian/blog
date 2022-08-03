@@ -21,9 +21,10 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/public/*": ["public/*"]
-    }
+      "components/*": ["components/*"],
+      "public/*": ["public/*"],
+      "@/*":["./*"]
+    },
   },
   "exclude": [
     "node_modules"
