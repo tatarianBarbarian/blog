@@ -4,12 +4,15 @@ import '../styles/index.css'
 import { ThemeProvider } from 'theme-ui'
 import Header from '@/components/header'
 import { theme } from '../styles/theme'
+import Layout from '@/components/layout'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   )
 }

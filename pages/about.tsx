@@ -1,4 +1,3 @@
-import Layout from '@/components/layout'
 import Image from 'next/future/image'
 import me from '@/public/kolbaski.jpg'
 import Head from 'next/head'
@@ -7,7 +6,7 @@ import { ThemedLink } from '@/components/themed-link'
 
 export default function About() {
   return (
-    <Layout>
+    <>
       <Head>
         <title>Обо мне</title>
       </Head>
@@ -37,6 +36,6 @@ export default function About() {
         </ThemedLink>
       </p>
       <p>f_khafizov＠protonmail․com</p>
-    </Layout>
+    </>
   )
 }

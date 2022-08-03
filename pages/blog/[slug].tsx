@@ -1,10 +1,7 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import { Container } from 'theme-ui'
 import PostBody from '@/components/post-body'
-import Header from '@/components/header'
 import PostHeader from '@/components/post-header'
-import Layout from '@/components/layout'
 import { getPostBySlug, getAllPosts } from '../../lib/api'
 import PostTitle from '@/components/post-title'
 import Head from 'next/head'
@@ -21,31 +18,25 @@ export default function Post({ post, morePosts }: Props) {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
-  return (
-    <Layout>
-      <Container>
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article className="mb-32">
-              <Head>
-                <title>{post.title}</title>
-                <meta
-                  property="og:image"
-                  content={post.ogImage.url}
-                />
-              </Head>
-              <PostHeader
-                title={post.title}
-                date={post.date}
-              />
-              <PostBody content={post.content} />
-            </article>
-          </>
-        )}
-      </Container>
-    </Layout>
+  return router.isFallback ? (
+    <PostTitle>Loading…</PostTitle>
+  ) : (
+    <>
+      <article className="mb-32">
+        <Head>
+          <title>{post.title}</title>
+          <meta
+            property="og:image"
+            content={post.ogImage.url}
+          />
+        </Head>
+        <PostHeader
+          title={post.title}
+          date={post.date}
+        />
+        <PostBody content={post.content} />
+      </article>
+    </>
   )
 }
 

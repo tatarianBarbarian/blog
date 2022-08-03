@@ -1,4 +1,3 @@
-import Layout from '@/components/layout'
 import { getAllPosts } from '../lib/api'
 import Head from 'next/head'
 import Post from '../interfaces/post'
@@ -13,7 +12,7 @@ type Props = {
 
 export default function Index({ allPosts }: Props) {
   return (
-    <Layout>
+    <>
       <Head>
         <title>f-k.dev</title>
       </Head>
@@ -56,7 +55,7 @@ export default function Index({ allPosts }: Props) {
           <ThemedLink>View all blog posts</ThemedLink>
         </Link>
       </>
-    </Layout>
+    </>
   )
 }
 

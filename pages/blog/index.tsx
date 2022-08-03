@@ -1,5 +1,4 @@
 import { Themed } from 'theme-ui'
-import Layout from '@/components/layout'
 import { getAllPosts } from '../../lib/api'
 import Head from 'next/head'
 import Post from '../../interfaces/post'
@@ -11,7 +10,7 @@ type Props = {
 
 export default function Index({ allPosts }: Props) {
   return (
-    <Layout>
+    <>
       <Head>
         <title>Пишу</title>
       </Head>
@@ -24,7 +23,7 @@ export default function Index({ allPosts }: Props) {
           excerpt={post.excerpt}
         />
       ))}
-    </Layout>
+    </>
   )
 }
 
