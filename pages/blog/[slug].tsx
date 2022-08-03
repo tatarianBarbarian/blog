@@ -1,12 +1,13 @@
-import { MDXRemote } from 'next-mdx-remote'
-import { readdirSync, readFileSync } from 'fs'
-import { join } from 'path'
 import { Themed } from 'theme-ui'
 import Head from 'next/head'
 import { ThemedLink } from 'components/themed-link'
-import { getPostBySlug } from '@/lib/api'
+import { getPostBySlug, getPostSlugs } from '@/lib/api'
 import Image from 'next/future/image'
-import { MDXToHTML } from '@/lib/MDXToHtml'
+import React from 'react'
+import { getMDXComponent } from 'mdx-bundler/client'
+import { bundleMDX } from 'mdx-bundler'
+import rehypeExternalLinks from 'rehype-external-links'
+import imageSize from 'rehype-img-size'
 
 const MDXComponents = {
   ...Themed,
@@ -14,8 +15,8 @@ const MDXComponents = {
   img: (props) => <Image {...props} />,
 }
 
-export default function MdxBlog({ source }) {
-  const { frontmatter } = source
+export default function MdxBlog({ code, frontmatter }) {
+  const PostComponent = React.useMemo(() => getMDXComponent(code), [code])
 
   return (
     <>
@@ -23,25 +24,32 @@ export default function MdxBlog({ source }) {
         <title>{frontmatter.title}</title>
       </Head>
       <Themed.h1>{frontmatter.title}</Themed.h1>
-      <MDXRemote
-        {...source}
-        components={MDXComponents}
-      />
+      <PostComponent components={{ ...MDXComponents }} />
     </>
   )
 }
 
 export async function getStaticProps({ params }) {
   const mdx = getPostBySlug(params.slug)
-  const compiled = await MDXToHTML(mdx)
+  const { code, frontmatter } = await bundleMDX({
+    source: mdx,
+    mdxOptions(options) {
+      options.remarkPlugins = [...(options.remarkPlugins ?? [])]
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        [rehypeExternalLinks, { rel: 'nofollow norefer', target: '_blank' }],
+        [imageSize, { dir: 'public' }],
+      ]
 
-  return { props: { source: compiled } }
+      return options
+    },
+  })
+
+  return { props: { code, frontmatter } }
 }
 
 export async function getStaticPaths() {
-  const posts = readdirSync(join(process.cwd(), '_mdx-posts')).map((i) =>
-    i.replace(/\.mdx$/, '')
-  )
+  const posts = getPostSlugs()
 
   return {
     paths: posts.map((post) => {

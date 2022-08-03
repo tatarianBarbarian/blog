@@ -1,16 +1,16 @@
-import fs, { readFileSync } from 'fs'
+import { readFileSync, readdirSync } from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
 
 const postsDirectory = join(process.cwd(), '_mdx-posts')
 
 export function getPostSlugs(): string[] {
-  return fs.readdirSync(postsDirectory).map((s) => s.replace(/\.mdx$/, ''))
+  return readdirSync(postsDirectory).map((s) => s.replace(/\.mdx$/, ''))
 }
 
 export function getPostBySlug(slug: string) {
   const fullPath = join(postsDirectory, `${slug}.mdx`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const fileContents = readFileSync(fullPath, 'utf8')
 
   return fileContents
 }
