@@ -5,8 +5,7 @@ import { Box, Themed } from 'theme-ui'
 import DateFormatter from 'components/date-formatter'
 import Link from 'next/link'
 import { ThemedLink } from 'components/themed-link'
-import { useIntl, useTranslations } from 'next-intl'
-import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   allPosts: Post[]
@@ -70,7 +69,7 @@ export const getStaticProps = async ({ locale }) => {
     props: {
       allPosts,
       messages: {
-        ...(await import(`../messages/index/index.${locale}.json`)).default,
+        ...(await import(`../messages/messages.${locale}.json`)).default,
       },
     },
   }

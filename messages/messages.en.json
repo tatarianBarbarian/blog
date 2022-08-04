@@ -4,5 +4,8 @@
     "about": "Frontend developer. I write mainly about development. But not only.",
     "recent_posts": "Recent blog posts:",
     "view_all_posts": "View all blog posts"
+  },
+  "BlogIndex": {
+    "title": "Wrote"
   }
 }

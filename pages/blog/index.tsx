@@ -3,16 +3,19 @@ import Head from 'next/head'
 import PostPreview from 'components/post-preview'
 import type Post from 'interfaces/post'
 import { getAllPosts } from '@/lib/api'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   allPosts: Post[]
 }
 
 export default function Index({ allPosts }: Props) {
+  const t = useTranslations('BlogIndex')
+
   return (
     <>
       <Head>
-        <title>Пишу</title>
+        <title>{t('title')}</title>
       </Head>
       <Themed.h1>Блог</Themed.h1>
       {allPosts.map((post) => (
@@ -30,5 +33,12 @@ export default function Index({ allPosts }: Props) {
 export async function getStaticProps({ locale }) {
   const posts = getAllPosts(locale)
 
-  return { props: { allPosts: posts } }
+  return {
+    props: {
+      allPosts: posts,
+      messages: {
+        ...(await import(`@/messages/messages.${locale}.json`)),
+      },
+    },
+  }
 }
