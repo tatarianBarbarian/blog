@@ -17,7 +17,7 @@ export default function Index({ allPosts }: Props) {
       <Head>
         <title>{t('title')}</title>
       </Head>
-      <Themed.h1>Блог</Themed.h1>
+      <Themed.h1>{t('blog')}</Themed.h1>
       {allPosts.map((post) => (
         <PostPreview
           key={post.slug}

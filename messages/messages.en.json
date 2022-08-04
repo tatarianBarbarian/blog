@@ -6,6 +6,7 @@
     "view_all_posts": "View all blog posts"
   },
   "BlogIndex": {
-    "title": "Wrote"
+    "title": "Wrote",
+    "blog": "Blog"
   }
 }
