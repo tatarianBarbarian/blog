@@ -117,7 +117,7 @@ export const theme: Theme = {
   },
   layout: {
     container: {
-      px: [4, null],
+      px: [6, null],
     },
   },
   transitions: {
