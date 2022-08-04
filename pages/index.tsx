@@ -5,23 +5,25 @@ import { Box, Themed } from 'theme-ui'
 import DateFormatter from 'components/date-formatter'
 import Link from 'next/link'
 import { ThemedLink } from 'components/themed-link'
+import { useIntl, useTranslations } from 'next-intl'
+import { useRouter } from 'next/router'
 
 type Props = {
   allPosts: Post[]
 }
 
 export default function Index({ allPosts }: Props) {
+  const t = useTranslations('Index')
+
   return (
     <>
       <Head>
         <title>f-k.dev</title>
       </Head>
       <>
-        <Themed.h1>Привет, я Феликс</Themed.h1>
-        <p>
-          Фронтенд разработчик. Пишу преимущественно об этом же. Но не только.
-        </p>
-        <Themed.h3>Recent blog posts:</Themed.h3>
+        <Themed.h1>{t('title')}</Themed.h1>
+        <p>{t('about')}</p>
+        <Themed.h3>{t('recent_posts')}</Themed.h3>
         <ul sx={{ listStyle: 'none', m: 0, p: 0, mb: 6 }}>
           {allPosts.slice(0, 5).map((post) => (
             <Box
@@ -54,17 +56,22 @@ export default function Index({ allPosts }: Props) {
           href="/blog"
           passHref
         >
-          <ThemedLink>View all blog posts</ThemedLink>
+          <ThemedLink>{t('view_all_posts')}</ThemedLink>
         </Link>
       </>
     </>
   )
 }
 
-export const getStaticProps = async () => {
-  const allPosts = getAllPosts()
+export const getStaticProps = async ({ locale }) => {
+  const allPosts = getAllPosts(locale)
 
   return {
-    props: { allPosts },
+    props: {
+      allPosts,
+      messages: {
+        ...(await import(`../messages/index/index.${locale}.json`)).default,
+      },
+    },
   }
 }

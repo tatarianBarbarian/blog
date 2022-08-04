@@ -3,10 +3,11 @@ import { Container } from 'theme-ui'
 import { useRouter } from 'next/router'
 import { useThemeUI, Grid, Flex } from 'theme-ui'
 import React from 'react'
+import { ThemedLink } from './themed-link'
 
 const isActiveNavCategory = (pathname, categoryPath) => {
   const currentCat = pathname.split('/').filter((p) => p.length !== 0)[0]
-  const reqCat = categoryPath.replace('/', '')
+  const reqCat = categoryPath.replace('/', '').replace(/^ru\//, '')
 
   return currentCat === reqCat
 }
@@ -51,6 +52,8 @@ const HeaderNav = () => {
 
 const Header = () => {
   const { theme } = useThemeUI()
+  const router = useRouter()
+  const isRu = router.locale === 'ru'
 
   return (
     <Container>
@@ -77,6 +80,16 @@ const Header = () => {
           </Link>
         </h2>
         <HeaderNav />
+        <Link
+          href={router.route}
+          as={router.asPath}
+          locale={isRu ? 'en' : 'ru'}
+          passHref
+        >
+          <ThemedLink sx={{ fontSize: '16px', gridColumn: '-1' }}>
+            {isRu ? 'EN' : 'RU'}
+          </ThemedLink>
+        </Link>
       </Grid>
     </Container>
   )

@@ -33,7 +33,10 @@ export const theme: Theme = {
     primary: '#123123',
     accent: colors.ablue,
   },
-  breakpoints: ['@media screen and (min-width: 1024px)', '@media screen and (max-width: 1023px)'],
+  breakpoints: [
+    '@media screen and (min-width: 1024px)',
+    '@media screen and (max-width: 1023px)',
+  ],
   styles: {
     root: {
       fontFamily: 'body',
@@ -75,6 +78,9 @@ export const theme: Theme = {
     },
     p: {
       lineHeight: 1.5,
+    },
+    li: {
+      marginBottom: 4,
     },
   },
   links: {

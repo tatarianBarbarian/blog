@@ -5,14 +5,17 @@ import { ThemeProvider } from 'theme-ui'
 import Header from 'components/header'
 import { theme } from '@/styles/theme'
 import Layout from 'components/layout'
+import { NextIntlProvider } from 'next-intl'
 
-export default function MyApp({ Component, pageProps, ...rest }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <Header />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <NextIntlProvider messages={pageProps.messages}>
+      <ThemeProvider theme={theme}>
+        <Header />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </NextIntlProvider>
   )
 }
