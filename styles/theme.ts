@@ -133,6 +133,8 @@ export const theme: Theme = {
       background: 'none',
       border: 'none',
       display: 'inline-flex',
+      margin: 0,
+      padding: 0,
     },
   },
 }

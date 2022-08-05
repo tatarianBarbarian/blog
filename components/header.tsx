@@ -5,8 +5,7 @@ import { useThemeUI, Grid } from 'theme-ui'
 import React, { useEffect } from 'react'
 import { ThemedLink } from './themed-link'
 import ClientOnlyPortal from './client-only-portal'
-import { ImCross } from 'react-icons/im'
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 
 const isActiveNavCategory = (pathname, categoryPath) => {
   const currentCat = pathname.split('/').filter((p) => p.length !== 0)[0]
@@ -73,7 +72,7 @@ const MobileNavImpl = ({ isOpen, onClose }) => {
         top: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(255,255,255, 0.7)',
+        backgroundColor: 'rgba(255,255,255, 0.85)',
         transition: 'one',
       }}
       onClick={() => onClose && onClose()}
@@ -87,8 +86,8 @@ const MobileNavImpl = ({ isOpen, onClose }) => {
             fontSize: 5,
           }}
         >
-          <button sx={{ ...theme.buttons.ghost, fontSize: 4, my: 5 }}>
-            <ImCross />
+          <button sx={{ ...theme.buttons.ghost, my: 5, color: 'black' }}>
+            <AiOutlineClose sx={{ width: 35, height: 35 }} />
           </button>
           <Link
             passHref
@@ -142,7 +141,7 @@ const Header = () => {
                 fontWeight: 'normal',
               }}
             >
-              Felix Khafizov
+              Felix&nbsp;Khafizov
             </a>
           </Link>
         </h2>
@@ -164,13 +163,14 @@ const Header = () => {
         <button
           sx={{
             ...theme.buttons.ghost,
-            fontSize: 5,
             display: ['inline-flex', 'none'],
             gridColumn: '-1',
+            color: 'black',
+            ml: 'auto',
           }}
           onClick={() => setOpenMobileNav(true)}
         >
-          <GiHamburgerMenu />
+          <AiOutlineMenu sx={{ width: 35, height: 35 }} />
         </button>
       </Grid>
     </Container>
