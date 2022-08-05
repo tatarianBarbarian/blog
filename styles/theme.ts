@@ -4,6 +4,11 @@ const colors = {
   ablue: '#1A90D9',
 }
 
+export const mediaSizes = {
+  mobile: '(max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+}
+
 const headerNavStyles = {
   base: {
     color: 'primary',
@@ -34,8 +39,8 @@ export const theme: Theme = {
     accent: colors.ablue,
   },
   breakpoints: [
-    '@media screen and (min-width: 1024px)',
-    '@media screen and (max-width: 1023px)',
+    `@media screen and ${mediaSizes.desktop}`,
+    `@media screen and ${mediaSizes.mobile}`,
   ],
   styles: {
     root: {
@@ -122,5 +127,12 @@ export const theme: Theme = {
   },
   transitions: {
     one: 'all .2s ease',
+  },
+  buttons: {
+    ghost: {
+      background: 'none',
+      border: 'none',
+      display: 'inline-flex',
+    },
   },
 }
