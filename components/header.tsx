@@ -16,19 +16,24 @@ const isActiveNavCategory = (pathname, categoryPath) => {
 
 type NavLinkProps = React.PropsWithChildren & { href?: string }
 
-const NavLink = React.forwardRef((props: NavLinkProps, ref) => {
+const NavLink = ({ children, href, ...props }: NavLinkProps) => {
   const { pathname } = useRouter()
   const { theme } = useThemeUI()
 
-  const isActive = isActiveNavCategory(pathname, props.href)
+  const isActive = isActiveNavCategory(pathname, href)
 
   return (
-    <a
+    <Link
+      href={href}
       {...props}
-      sx={isActive ? theme.links.headerNavCurrent : theme.links.headerNav}
-    />
+      passHref
+    >
+      <a sx={isActive ? theme.links.headerNavCurrent : theme.links.headerNav}>
+        {children}
+      </a>
+    </Link>
   )
-})
+}
 
 const HeaderNav = () => {
   return (
@@ -36,22 +41,11 @@ const HeaderNav = () => {
       as="nav"
       sx={{
         alignItems: 'center',
-        flexDirection: ['column', 'row'],
         display: ['none', 'flex'],
       }}
     >
-      <Link
-        href="/blog"
-        passHref
-      >
-        <NavLink>Blog</NavLink>
-      </Link>
-      <Link
-        href="/about"
-        passHref
-      >
-        <NavLink>About</NavLink>
-      </Link>
+      <NavLink href="/blog">Blog</NavLink>
+      <NavLink href="/about">About</NavLink>
     </Box>
   )
 }
@@ -89,18 +83,13 @@ const MobileNavImpl = ({ isOpen, onClose }) => {
           <button sx={{ ...theme.buttons.ghost, my: 5, color: 'black' }}>
             <AiOutlineClose sx={{ width: 35, height: 35 }} />
           </button>
-          <Link
-            passHref
+          <ThemedLink
             href="/blog"
+            sx={{ mb: 5 }}
           >
-            <ThemedLink sx={{ mb: 5 }}>Blog</ThemedLink>
-          </Link>
-          <Link
-            passHref
-            href="/about"
-          >
-            <ThemedLink>About</ThemedLink>
-          </Link>
+            Blog
+          </ThemedLink>
+          <ThemedLink href="/about">About</ThemedLink>
         </Box>
       </Container>
     </div>

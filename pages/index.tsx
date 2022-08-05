@@ -41,22 +41,18 @@ export default function Index({ allPosts }: Props) {
                 dateString={post.date}
                 format="dd.MM.yyyy"
               />
-              <Link
+
+              <ThemedLink
                 as={`/blog/${post.slug}`}
                 href="/blog/[slug]"
-                passHref
               >
-                <ThemedLink>{post.title}</ThemedLink>
-              </Link>
+                {post.title}
+              </ThemedLink>
             </Box>
           ))}
         </ul>
-        <Link
-          href="/blog"
-          passHref
-        >
-          <ThemedLink>{t('view_all_posts')}</ThemedLink>
-        </Link>
+
+        <ThemedLink href="/blog">{t('view_all_posts')}</ThemedLink>
       </>
     </>
   )
