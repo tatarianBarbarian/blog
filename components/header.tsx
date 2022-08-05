@@ -155,7 +155,7 @@ const Header = () => {
             display: ['inline-flex', 'none'],
             gridColumn: '-1',
             color: 'black',
-            ml: 'auto',
+            justifySelf: 'end',
           }}
           onClick={() => setOpenMobileNav(true)}
         >
