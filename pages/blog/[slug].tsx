@@ -18,7 +18,7 @@ export default function MdxBlog({ code, frontmatter }) {
 
 export async function getStaticProps({ params, locale }) {
   const mdx = getPostBySlug(params.slug, locale)
-  const { code, frontmatter } = await compileMDX(mdx)
+  const { code, frontmatter } = await compileMDX(mdx, locale)
 
   return { props: { code, frontmatter } }
 }
