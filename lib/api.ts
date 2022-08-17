@@ -27,7 +27,7 @@ export function getPostBySlug(slug: string, locale = 'en') {
 }
 
 export function getAllPosts(locale = 'en') {
-  const slugs = getPostSlugs()
+  const slugs = getPostSlugs(locale)
 
   const posts = slugs
     .map((slug) => {
