@@ -6,7 +6,7 @@ import { getMdxFile } from '@/lib/api'
 
 export async function getStaticProps({ locale }) {
   const mdx = getMdxFile('about', locale)
-  const { code, frontmatter } = await compileMDX(mdx)
+  const { code, frontmatter } = await compileMDX(mdx, locale)
 
   return {
     props: {
