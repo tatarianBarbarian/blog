@@ -1,0 +1,129 @@
+---
+title: 'Next.js and MDX'
+date: '2022-08-17'
+excerpt: 'In this article I would like to take a look at most popular solutions for dealing with MDX in Next.js'
+---
+
+![Next.js and MDX logo](/assets/blog/next-js-and-mdx/next_mdx.png)
+
+[MDX](https://mdxjs.com/) format is Markdown Extended. It is a way to make content more interactive.
+
+While we compile our Markdown to HTML, MDX compiles to JSX.
+And yes, it is possible to use React components here.
+There are actually three commonly used solutions for MDX with Next.js:
+
+- [@next/mdx](https://www.npmjs.com/package/@next/mdx)
+- [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+- [mdx-bundler](https://github.com/kentcdodds/mdx-bundler)
+
+Basically, they all can compile our MDX. But the devil is in the details. In addition to compilation, we may need some functionality such as:
+
+- [frontmatter](https://gohugo.io/content-management/front-matter/) extraction
+- handle imports, because [we can use JavaScript imports in MDX](https://mdxjs.com/docs/what-is-mdx/#esm)
+- substitute default HTML elements to custom ones. For example swap `<h1>` with `<CustomH1Heading>`
+
+## @next/mdx
+
+This is what Next.js docs [recommends](https://nextjs.org/docs/advanced-features/using-mdx) us by default.
+
+Usage scenarios:
+
+- Pages as MDX
+- Import MDX (and whatever MDX exports) from JS/TS files
+- React components imports inside MDX
+
+I created an example repo with some of them for better understanding.
+
+[Example repo with @next/mdx](https://github.com/tatarianBarbarian/nextjs-with-next-mdx)
+
+Also available in sandbox:
+
+<iframe
+  frameBorder="0"
+  width="100%"
+  height="500px"
+  src="https://replit.com/@asssama212/nextjs-with-next-mdx?embed=true"
+/>
+
+Give it some clicks.
+
+### Reflections on @next/mdx
+
+I tried to take it to my blog, but I found that it is bound to filesystem and I'll end up with some boilerplate code.
+
+This is a good solution if:
+
+- You don't need to "compile" it by yourself
+- Your MDX comes from filesystem
+- Your routes are filesystem-based, not [dynamic](https://nextjs.org/docs/routing/dynamic-routes) ones
+
+## next-mdx-remote
+
+Main focus of this project is to awoid @next/mdx [limitations](https://github.com/hashicorp/next-mdx-remote#background--theory).
+
+It offers us different approach. It gives us ability to compile our MDX files in
+[getStaticProps](https://nextjs.org/docs/api-reference/data-fetching/get-static-props)
+or [getServerSideProps](https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props)
+
+[Example repo with next-mdx-remote](https://github.com/tatarianBarbarian/next-js-with-next-mdx-remote)
+
+In sandbox:
+
+<iframe
+  frameBorder="0"
+  width="100%"
+  height="500px"
+  src="https://replit.com/@asssama212/next-js-with-next-mdx-remote?embed=true"
+/>
+
+As you can see, we can swap standard components with ours.
+
+Cool thing is that it also can parse frontmatter!
+
+`import`/`export` don't work in next-mdx-remote. If we want to use some components from our codebase,
+we should provide them through "components" property of `<MDXRemote>` component.
+
+### Reflections on next-mdx-remote
+
+It was "almost this" for my own purposes, but absence of handling imports was critical for me.
+
+This one is good solution if:
+
+- You have many and many MDX files
+- Your MDX may be anywhere
+- You know the set of components which will be used in MDX
+
+## mdx-bundler
+
+I don't know why but it took me some time to find it actually.
+
+It's like next-mdx-remote, but with batteries. It has very similar interface but:
+
+- handles import/export statements inside our MDX
+- you can reference frontmatter inside MDX itself
+- you can reference constants declared in your MDX
+
+[Example repo with mdx-bundler](https://github.com/tatarianBarbarian/next-js-with-mdx-bundler)
+
+Example code in sanbox:
+
+<iframe
+  frameBorder="0"
+  width="100%"
+  height="500px"
+  src="https://replit.com/@asssama212/next-js-with-mdx-bundler?embed=true"
+/>
+
+### Reflections on mdx-bundler
+
+It has simple and flexible API. But its abilities terrifying me a bit.
+
+And this is why: we can write entire components inside our MDX, can import and export things.
+
+It's very easy to fall into situation where **our content is highly coupled to our code**.
+
+## Summary
+
+Which tool is the coolest?
+
+The coolest one that meets your requirements.
