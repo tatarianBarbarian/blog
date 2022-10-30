@@ -1,0 +1,136 @@
+---
+title: 'On tools and problems'
+date: '2022-10-09'
+excerpt: 'How do you choose tools for certain problems?'
+---
+
+I'll try to explain it by using system thinking techniques and questions to yourself.
+
+## Identify problem
+
+All tools are solving certain problems.
+So the first right step is correctly identify problem.
+
+Ask yourself:
+
+- What problem I'm going to solve?
+- Is it actually a problem and should I solve it?
+- Can I [avoid](https://kentcdodds.com/blog/don-t-solve-problems-eliminate-them) this problem?
+- Can I split this problem into smaller ones?
+- Can I solve this natively without using any 3rd party tools?
+
+## Choose a tool
+
+Or build it by yourself!
+
+Good example from UI-development is [datepicker](https://mui.com/x/react-date-pickers/getting-started/)
+implementation.
+
+We can build this picker by ourselwes, which will produce a set of sub-problems.
+
+In most cases component part will require API design, and solve such problems as positioning, drop-downs and input masking.
+Internal part will require solution for working with dates and i18n.
+
+Also we can use opensource solution. It will require learning documentation and to accept some restrictions.
+
+There is no right answer -- all depends on your budget, requirements and skills.
+
+The thing is that you need to understand your problem, possible solutions, trade-offs.
+
+## Try to build mental model of the tool by recreating it in your head
+
+So, in most cases you'll choose opensource tools.
+
+It feels a lot better when our tools aren't just black boxes that do some magic for us.
+
+It simplifies understanding of the tool, makes easier to find bugs, avoid patching and create workarounds.
+
+Ask yourself:
+
+- If I made it by myself from scratch how did it work?
+- What it should be based on?
+- Which hierarchy, structure, entitites it would have?
+
+## Understand data flow/lifecycle
+
+What is the best place for fetching data in React? And in Vue?
+Refetching data in both of them?
+
+While both tools are solving the same problem, they are different.
+
+Questions:
+
+- When and where should I pass the inputs?
+- How to manipulate data?
+- How to get output?
+- Does it have lifecycle hooks or events to react on certain things?
+- Error handling?
+- Plug-ins, modifications?
+- How to debug and test?
+
+## Pull it all together
+
+All above things should lead you to understanding:
+
+- What problem we are going to solve
+- What are possible native and 3rd party solutions
+- What concept/technology/pattern stands behind the solution
+- How it lives, accepts inputs and produces outputs
+
+### Examples
+
+It's very good if you can formulate your knowledge about tool in a set of sentences.
+
+As you learning the tool, this sentences should become more detalized.
+
+There is couple of rough examples:
+
+**GraphQL**
+
+Query language for working with API.
+
+Someone call it unified interface to API.
+
+Which problems solves:
+
+- universal language to speak with API
+- avoiding overfetching, i.e. get only data you need
+- build a contract between frontend and backend
+
+Entities: _Query_, _Mutation_, _Type_, _Schema_.
+
+---
+
+**Typescript**
+
+A subset of javascript which offers type definitions and compile-time type checking.
+
+Which problems solves:
+
+- ability to type variables and functions
+- ability to model our own data types
+- check validity of our types at compile time
+
+Main concepts are: _Types_, _Interfaces_, _Generics_. Allows to define types of the variables.
+
+Doesn't check types at the **run time**
+
+---
+
+**Three.js**
+
+Basically the tool for building 3d experiences in web.
+
+Which problems solves:
+
+- work with 3d objects
+- animate 3d objects
+- build interactive interfaces with 3d objects
+
+Uses WebGL for computations and canvas for output(in most cases).
+
+Typical Three.js app consists of _Scene_, which is composition of _Objects_, _Cameras_, _Groups_, _Meshes_.
+
+---
+
+_Know your tools!_
