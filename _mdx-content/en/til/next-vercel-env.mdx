@@ -18,7 +18,7 @@ It seems like somewhat was not ok with `\n` special character.
 
 My solution is based partially on
 [Ben Ilegbodu's solution](https://www.benmvp.com/blog/initializing-firebase-admin-node-sdk-env-vars/).
-But the key itself also stored in `Base64` encoding.
+But the key itself also stored in Base64 encoding.
 
 So it looks like this:
 
@@ -39,10 +39,10 @@ const firebaseApp =
   })
 ```
 
-### Why `Base64`
+### Why Base64
 
-`Base64` is used because well, storing on Vercel raw string with special characters
+Base64 is used because well, storing on Vercel raw string with special characters
 didn't work for me. 🙂
 
-Also it's a good practice to store such data in `Base64` because it's simply
+Also it's a good practice to store such data in Base64 because it's simply
 a string without any special characters.
