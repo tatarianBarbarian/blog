@@ -1,4 +1,4 @@
-import { getAllPosts } from '../lib/api'
+import { getAllPostsFromCategory } from '../lib/api'
 import Head from 'next/head'
 import Post from '@/interfaces/post'
 import { Box, Themed } from 'theme-ui'
@@ -59,7 +59,7 @@ export default function Index({ allPosts }: Props) {
 }
 
 export const getStaticProps = async ({ locale }) => {
-  const allPosts = getAllPosts(locale)
+  const allPosts = getAllPostsFromCategory(locale, 'blog')
 
   return {
     props: {
