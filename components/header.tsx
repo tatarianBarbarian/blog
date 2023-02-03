@@ -90,6 +90,12 @@ const MobileNavImpl = ({ isOpen, onClose }) => {
           >
             Blog
           </ThemedLink>
+          <ThemedLink
+            href="/til"
+            sx={{ mb: 5 }}
+          >
+            TIL
+          </ThemedLink>
           <ThemedLink href="/about">About</ThemedLink>
         </Box>
       </Container>
