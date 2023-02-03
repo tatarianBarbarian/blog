@@ -87,6 +87,10 @@ export const theme: Theme = {
     li: {
       marginBottom: 4,
     },
+    code: {
+      borderRadius: 8,
+      fontSize: '16px',
+    },
   },
   links: {
     nav: {},

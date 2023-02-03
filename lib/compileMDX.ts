@@ -2,6 +2,7 @@ import { bundleMDX } from 'mdx-bundler'
 import rehypeExternalLinks from 'rehype-external-links'
 import imageSize from 'rehype-img-size'
 import typofaf from '@mavrin/remark-typograf'
+import rehypeHighlight from 'rehype-highlight'
 
 const remarkPlugins = {
   ru: [
@@ -34,6 +35,7 @@ export async function compileMDX(mdx, locale = 'en') {
         ...(options.rehypePlugins ?? []),
         [rehypeExternalLinks, { rel: 'nofollow norefer', target: '_blank' }],
         [imageSize, { dir: 'public' }],
+        [rehypeHighlight],
       ]
 
       return options
