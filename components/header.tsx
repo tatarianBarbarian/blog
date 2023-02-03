@@ -45,6 +45,7 @@ const HeaderNav = () => {
       }}
     >
       <NavLink href="/blog">Blog</NavLink>
+      <NavLink href="/til">TIL</NavLink>
       <NavLink href="/about">About</NavLink>
     </Box>
   )

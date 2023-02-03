@@ -1,0 +1,48 @@
+---
+date: '2023-02-03'
+title: 'Vercel/Next.js: handle complicated env variables'
+excerpt: 'Or how to pass firebase private key to Vercel hosted Next app'
+---
+
+## The problem
+
+On one of the projects we were moving our Next.js + Firebase app to Vercel.
+
+In old flow we pushed environment variables via bash script and `export` directive.
+In a new flow we decided to use Vercel's env variables and encountered weird behavior with private key.
+It was needed for `firebase-admin`.
+
+It seems like somewhat was not ok with `\n` special character.
+
+## The solution
+
+My solution is based partially on
+[Ben Ilegbodu's solution](https://www.benmvp.com/blog/initializing-firebase-admin-node-sdk-env-vars/).
+But the key itself also stored in `Base64` encoding.
+
+So it looks like this:
+
+```js
+const privateKey = Buffer.from(
+  process.env.FIREBASE_PRIVATE_KEY_B64,
+  'base64'
+).toString('utf-8')
+
+const firebaseApp =
+  global.firebaseApp ??
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: privateKey?.replace(/\\n/gm, '\n'),
+    }),
+  })
+```
+
+### Why `Base64`
+
+`Base64` is used because well, storing on Vercel raw string with special characters
+didn't work for me. 🙂
+
+Also it's a good practice to store such data in `Base64` because it's simply
+a string without any special characters.

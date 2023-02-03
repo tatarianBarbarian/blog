@@ -17,14 +17,14 @@ export default function Index({ allPosts }: Props) {
       <Head>
         <title>{t('title')}</title>
       </Head>
-      <Themed.h1>{t('blog')}</Themed.h1>
+      <Themed.h1>{t('til')}</Themed.h1>
       {allPosts.map((post) => (
         <PostPreview
           key={post.slug}
           title={post.title}
           slug={post.slug}
           excerpt={post.excerpt}
-          thematic="blog"
+          thematic="til"
         />
       ))}
     </>
@@ -32,7 +32,7 @@ export default function Index({ allPosts }: Props) {
 }
 
 export async function getStaticProps({ locale }) {
-  const posts = getAllPostsFromCategory(locale, 'blog')
+  const posts = getAllPostsFromCategory(locale, 'til')
 
   return {
     props: {

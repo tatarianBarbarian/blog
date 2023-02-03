@@ -5,15 +5,16 @@ type Props = {
   title: string
   excerpt: string
   slug: string
+  thematic: 'blog' | 'til'
 }
 
-const PostPreview = ({ title, excerpt, slug }: Props) => {
+const PostPreview = ({ title, excerpt, slug, thematic = 'blog' }: Props) => {
   const { theme } = useThemeUI()
 
   return (
     <Link
-      as={`/blog/${slug}`}
-      href="/blog/[slug]"
+      as={`/${thematic}/${slug}`}
+      href={`/${thematic}/[slug]`}
       passHref
     >
       <Box
