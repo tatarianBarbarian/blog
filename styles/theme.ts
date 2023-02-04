@@ -87,8 +87,11 @@ export const theme: Theme = {
     li: {
       marginBottom: 4,
     },
-    code: {
+    pre: {
       borderRadius: 8,
+      padding: 6,
+    },
+    code: {
       fontSize: '16px',
     },
   },

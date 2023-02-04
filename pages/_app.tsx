@@ -1,7 +1,6 @@
 import { AppProps } from 'next/app'
 import 'normalize.css'
 import '@/styles/index.css'
-import 'highlight.js/styles/srcery.css'
 import { ThemeProvider } from 'theme-ui'
 import Header from 'components/header'
 import { theme } from '@/styles/theme'
