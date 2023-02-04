@@ -5,6 +5,7 @@ img {
 
 pre > code {
   display: grid;
+  overflow-x: scroll;
 }
 
 code {
