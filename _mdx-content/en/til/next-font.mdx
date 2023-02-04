@@ -1,0 +1,68 @@
+---
+title: '@next/font'
+date: '2023-02-04'
+excerpt: 'Next 13 font optimization feature'
+---
+
+## Problem
+
+Abstracting away external fonts connection / loading, managing self-hosted fonts, etc.
+
+## Solution
+
+Next.js provides an abstraction to self-host any font in a few
+lines of code!
+
+All stuff is done via separate package [@next/font](https://www.npmjs.com/package/@next/font)
+
+Examples are in `_app.tsx` file!
+
+### Case 1: Connecting Google font
+
+```jsx
+// Special section for Google fonts!
+import { Roboto } from '@next/font/google'
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400'],
+})
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <main className={roboto.className}>
+      {
+        // Rest of the code...
+      }
+    </main>
+  )
+}
+```
+
+### Case 2: Connecting local font
+
+```jsx
+import localFont from '@next/font/local'
+
+const kyivTypeSans = localFont({
+  src: [
+    { path: '../fonts/KyivTypeSans.woff2' },
+    { path: '../fonts/KyivTypeSans.woff' },
+  ],
+  display: 'swap',
+})
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <main className={kyivTypeSans.className}>
+      {
+        // Rest of the code...
+      }
+    </main>
+  )
+}
+```
+
+#### Thanks
+
+To collegues and [Next.js docs](https://nextjs.org/docs/basic-features/font-optimization)
