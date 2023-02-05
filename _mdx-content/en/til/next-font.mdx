@@ -15,11 +15,11 @@ lines of code!
 
 All stuff is done via separate package [@next/font](https://www.npmjs.com/package/@next/font)
 
-Examples are in `_app.tsx` file!
-
 ### Case 1: Connecting Google font
 
 ```jsx
+// _app.tsx
+
 // Special section for Google fonts!
 import { Roboto } from '@next/font/google'
 
@@ -42,6 +42,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 ### Case 2: Connecting local font
 
 ```jsx
+// _app.tsx
+
 import localFont from '@next/font/local'
 
 const kyivTypeSans = localFont({
