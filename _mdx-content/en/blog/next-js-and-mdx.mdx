@@ -20,7 +20,7 @@ Basically, they all can compile our MDX. But the devil is in the details. In add
 
 - [frontmatter](https://gohugo.io/content-management/front-matter/) extraction
 - handle imports, because [we can use JavaScript imports in MDX](https://mdxjs.com/docs/what-is-mdx/#esm)
-- substitute default HTML elements to custom ones. For example swap `<h1>` with `<CustomH1Heading>`
+- substitute default HTML elements to custom ones. For example swap `<h1>{:jsx}` with `<CustomH1Heading>{:jsx}`
 
 ## @next/mdx
 
@@ -80,8 +80,8 @@ As you can see, we can swap standard components with ours.
 
 Cool thing is that it also can parse frontmatter!
 
-`import`/`export` don't work in next-mdx-remote. If we want to use some components from our codebase,
-we should provide them through "components" property of `<MDXRemote>` component.
+`import{:js}`/`export{:js}` don't work in next-mdx-remote. If we want to use some components from our codebase,
+we should provide them through "components" property of `<MDXRemote>{:jsx}` component.
 
 ### Reflections on next-mdx-remote
 
