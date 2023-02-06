@@ -30,3 +30,12 @@ code[data-line-numbers-max-digits='2'] > .line::before {
 code[data-line-numbers-max-digits='3'] > .line::before {
   width: 3rem;
 }
+
+span[data-rehype-pretty-code-fragment] > code {
+  padding: 2px 4px;
+  border-radius: 6px;
+}
+
+span[data-rehype-pretty-code-fragment] > code > .line::before {
+  display: none;
+}
