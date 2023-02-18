@@ -1,0 +1,34 @@
+---
+title: 'Mass Effect: Failed to compile global shaders'
+date: '2023-02-18'
+---
+
+I ecnountered an error when tried to run Mass Effect in Steam:
+
+`Failed to compile global shaders...`
+
+I found
+[EA forum thread on this](https://answers.ea.com/t5/Other-Mass-Effect-Games/Failed-to-compile-global-shaders/m-p/6938354/highlight/true#M8342)
+
+But I use linux on my daily basis, so I tried to play this game under Proton.
+
+As proton uses wine under the hood, we need to install DirectX binaries under
+Wine instance.
+
+Proton's Wine usually located near game installation.
+
+Each game has its own Proton and Wine instances.
+
+In my case it was at:
+
+`~/.local/share/Steam/steamapps/compatdata/17460/pfx{:shell}`
+
+`17460{:shell}` is the steam app ID.
+
+To run Wine in certain instance we should use `WINEPREFIX{:shell}` environment variable.
+
+In my case to install DirectX into Mass Effect's Wine instance the command was:
+
+`WINEPREFIX=~/.local/share/Steam/steamapps/compatdata/17460/pfx wine ~/Downloads/DXSDK_Jun10.exe{:shell}`
+
+And then just follow installation master.
