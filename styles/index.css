@@ -6,6 +6,7 @@ img {
 pre > code {
   display: grid;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 code {
