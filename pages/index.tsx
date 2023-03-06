@@ -8,9 +8,10 @@ import { useTranslations } from 'next-intl'
 
 type Props = {
   allPosts: Post[]
+  allTils: Post[]
 }
 
-export default function Index({ allPosts }: Props) {
+export default function Index({ allPosts, allTils }: Props) {
   const t = useTranslations('Index')
 
   return (
@@ -51,7 +52,40 @@ export default function Index({ allPosts }: Props) {
           ))}
         </ul>
 
-        <ThemedLink href="/blog">{t('view_all_posts')}</ThemedLink>
+        {allTils.length ? (
+          <>
+            <Themed.h3>{t('recent_tils')}</Themed.h3>
+
+            <ul sx={{ listStyle: 'none', m: 0, p: 0, mb: 6 }}>
+              {allTils.slice(0, 5).map((post) => (
+                <Box
+                  as="li"
+                  sx={{
+                    display: 'grid',
+                    gridTemplateColumns: ['1fr', '80px 1fr'],
+                    rowGap: [4, null],
+                    alignItems: 'baseline',
+                    columnGap: 7,
+                    mb: 6,
+                  }}
+                  key={post.slug}
+                >
+                  <DateFormatter
+                    dateString={post.date}
+                    format="dd.MM.yyyy"
+                  />
+
+                  <ThemedLink
+                    as={`/blog/${post.slug}`}
+                    href="/blog/[slug]"
+                  >
+                    {post.title}
+                  </ThemedLink>
+                </Box>
+              ))}
+            </ul>
+          </>
+        ) : null}
       </>
     </>
   )
@@ -59,10 +93,12 @@ export default function Index({ allPosts }: Props) {
 
 export const getStaticProps = async ({ locale }) => {
   const allPosts = getAllPostsFromCategory(locale, 'blog')
+  const allTils = getAllPostsFromCategory(locale, 'til')
 
   return {
     props: {
       allPosts,
+      allTils,
       messages: {
         ...(await import(`../messages/messages.${locale}.json`)).default,
       },
