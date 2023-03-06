@@ -1,0 +1,44 @@
+---
+title: 'Fallout 4: no sound on Lutris/Wine'
+date: '2023-03-06'
+excerpt: 'Linux gaming still a bit tricky'
+---
+
+## Problem
+
+I was running Fallout 4 from Lutris under `lutris-GE-Proton7-37{:bash}` runner.
+
+There were some sounds, but not all of them: no background music, no charactar replics.
+
+Problem is common, and there actualy was a
+[solution](https://www.reddit.com/r/SteamPlay/comments/jf3ndq/comment/g9iofke/?utm_source=share&utm_medium=web2x&context=3).
+
+But it was for Steam and Proton, my problem was with Lutris.
+
+First thing I tried is just simply to run something like this:
+
+```bash
+WINEPREFIX=~/path_to_game_prefix/ WINEDLLOVERRIDES="xaudio2_7=n,b" wine ~/path_to_fallout4.exe
+```
+
+It didn't work for me, and this is why: I was running my <u>local Wine installation</u>.
+
+To make it work I needed to run it under `lutris-GE-Proton7-37{:bash}` installation.
+
+So the working command was:
+
+```bash
+WINEPREFIX=~/path_to_game_prefix/ \
+WINEDLLOVERRIDES="xaudio2_7=n,b" \
+~/.local/share/lutris/runners/wine/lutris-GE-Proton7-37-x86_64/bin/wine \
+~/path_to_fallout4.exe
+```
+
+Also there is another way to set override:
+
+```bash
+WINEPREFIX=~/path_to_game_prefix/ \
+~/.local/share/lutris/runners/wine/lutris-GE-Proton7-37-x86_64/bin/winecfg
+```
+
+And then go to `Libraries{:bash}` tab, and set `xaudio2_6{:bash}` and `xaudio2_7{:bash}` to `"native, then built in"{:bash}`.
