@@ -153,7 +153,7 @@ const Header = () => {
           passHref
         >
           <ThemedLink sx={{ fontSize: 2, gridColumn: [null, '-1'] }}>
-            {isRu ? 'EN' : 'RU'}
+            {isRu ? 'RU' : 'EN'}
           </ThemedLink>
         </Link>
         <button
