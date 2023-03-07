@@ -76,8 +76,8 @@ export default function Index({ allPosts, allTils }: Props) {
                   />
 
                   <ThemedLink
-                    as={`/blog/${post.slug}`}
-                    href="/blog/[slug]"
+                    as={`/til/${post.slug}`}
+                    href="/til/[slug]"
                   >
                     {post.title}
                   </ThemedLink>
