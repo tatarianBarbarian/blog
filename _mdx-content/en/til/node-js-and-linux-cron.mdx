@@ -1,0 +1,70 @@
+---
+title: 'Nuances of running Node.js script from linux cron'
+date: '2023-03-14'
+excerpt: 'What can go wrong?'
+---
+
+## General outline
+
+There is a script that should run on some schedule.
+
+The script is type of run-once-then-shutdown.
+
+Script is pretty simple, here are some of the core components:
+
+- `dotenv` for environment variables
+- `pino` for logging
+- `firebase-admin` for some db logic
+
+### Script logic
+
+1. Initialize env
+2. Do some db stuff
+3. Shut down
+4. Repeat when cron will invoke script again
+
+### Crontab
+
+```crontab
+1 0 * * * /path/to/node /path/to/script.js >> /path/to/log 2>&1
+```
+
+`>> /path/to/log 2>&1{:sh}` will say cron to write any output from script to a file
+
+## What can go wrong?
+
+### No MTA installed, discarding output
+
+This record can be found in `/var/log/syslog` right after our cron job.
+
+It is the signal that we probably have an error in our script.
+
+Make sure that you specified the outputs for cron job.
+
+I mean `>> /path/to/log 2>&1{:sh}`.
+
+### The "path" argument must be of type string. Received undefined
+
+It happens when our code relies on paths, that are specified in `.env` file:
+
+- path to firebase creds
+- path to logs
+- etc.
+
+To make sure `dotenv` loads `.env` file correctly we need to specify it in `.config` method.
+
+In my case env initialization was in `app-root/lib/config.js{:sh}`, and env file was in `app-root` folder.
+
+This worked for me:
+
+`require('dotenv').config({path: __dirname + '../.env'}){:js}`
+
+See [https://github.com/motdotla/dotenv#path](https://github.com/motdotla/dotenv#path)
+
+## Recommendations
+
+Consider of using absolute paths in `.env{:js}` file
+
+Also keep in mind that `path.resolve(){:js}` method uses `process.cwd(){:js}` as a base path.
+To be sure everything is fine it would be a good idea to use `__dirname` variable as a base, so
+`path.resolve(__dirname, '../'){:js}` can be better than simply `path.resolve('..'){:js}`
