@@ -7,8 +7,6 @@ type Props = {
 }
 
 const Layout = ({ children }: Props) => {
-  const { theme } = useThemeUI()
-
   return (
     <>
       <Meta />

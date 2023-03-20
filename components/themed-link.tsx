@@ -17,6 +17,7 @@ const ThemedLinkImpl = (
         passHref
         href={href}
         as={as}
+        legacyBehavior
       >
         <a
           sx={theme.styles.a}

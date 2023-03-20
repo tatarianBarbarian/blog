@@ -1,6 +1,6 @@
 import { getMDXComponent } from 'mdx-bundler/client'
 import { ThemedLink } from './themed-link'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { Themed } from '@theme-ui/mdx'
 import React from 'react'
 

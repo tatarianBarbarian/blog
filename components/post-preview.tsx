@@ -16,6 +16,7 @@ const PostPreview = ({ title, excerpt, slug, thematic = 'blog' }: Props) => {
       as={`/${thematic}/${slug}`}
       href={`/${thematic}/[slug]`}
       passHref
+      legacyBehavior
     >
       <Box
         as="a"

@@ -27,6 +27,7 @@ const NavLink = ({ children, href, ...props }: NavLinkProps) => {
       href={href}
       {...props}
       passHref
+      legacyBehavior
     >
       <a sx={isActive ? theme.links.headerNavCurrent : theme.links.headerNav}>
         {children}
@@ -129,6 +130,7 @@ const Header = () => {
           <Link
             href="/"
             passHref
+            legacyBehavior
           >
             <a
               sx={{
@@ -151,8 +153,12 @@ const Header = () => {
           as={router.asPath}
           locale={isRu ? 'en' : 'ru'}
           passHref
+          legacyBehavior
         >
-          <ThemedLink sx={{ fontSize: 2, gridColumn: [null, '-1'] }}>
+          <ThemedLink
+            sx={{ fontSize: 2, gridColumn: [null, '-1'] }}
+            href={router.route}
+          >
             {isRu ? 'RU' : 'EN'}
           </ThemedLink>
         </Link>
