@@ -1,0 +1,62 @@
+---
+title: 'Formik + happy-dom = 💔'
+date: '2023-03-28'
+excerpt: 'Weird behavior of testing Formik with happy-dom'
+---
+
+## Problem
+
+I was trying to test simple authentication [form](https://github.com/tatarianBarbarian/fancy-auth).
+
+The stack was: React, Vite, Vitest, happy-dom.
+
+I don't know why, but formik inputs weren't reacting on `userEvent.type{:js}`, `userEvent.click{:js}` methods.
+
+Formik form didn't submit.
+
+There is not much info if you just try to google the issue.
+
+Problem seemed to be with `userEvent{:js}`, because with `fireEvent{:js}` it was partially working.
+But in guides `userEvent{:js}` seemed to be working fine!
+
+## Solution
+
+The root of issue was in `happy-dom{:sh}` package, which can be selected as an environment option for Vitest.
+
+So, moving from:
+
+```js
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  base: '',
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    setupFiles: './src/test/setup.js',
+  },
+})
+```
+
+to:
+
+```js
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  base: '',
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
+  },
+})
+```
+
+has solved the issue.
