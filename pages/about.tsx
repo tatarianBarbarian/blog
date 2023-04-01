@@ -21,6 +21,10 @@ export default function About({ code, frontmatter }) {
     <>
       <Head>
         <title>{frontmatter.title}</title>
+        <meta
+          name="description"
+          content={frontmatter.description}
+        />
       </Head>
       <Themed.h1>{frontmatter.title}</Themed.h1>
       <MDXContentWrapper compiledMdx={code} />

@@ -66,10 +66,6 @@ const Meta = () => {
         type="application/rss+xml"
         href="/feed.xml"
       />
-      <meta
-        name="description"
-        content={`A statically generated blog example using Next.js.`}
-      />
     </Head>
   )
 }

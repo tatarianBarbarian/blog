@@ -16,6 +16,10 @@ export default function Index({ allPosts }: Props) {
     <>
       <Head>
         <title>{t('title')}</title>
+        <meta
+          name="description"
+          content="F-K.DEV insights mostly on web-dev and linux gaming"
+        />
       </Head>
       <Themed.h1>{t('til')}</Themed.h1>
       {allPosts.map((post) => (

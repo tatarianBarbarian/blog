@@ -16,6 +16,10 @@ export default function Index({ allPosts }: Props) {
     <>
       <Head>
         <title>{t('title')}</title>
+        <meta
+          name="description"
+          content={`Discover the latest insights and perspectives on software development, technology, and more on Felix Khafizov's blog. Explore a range of topics, including web development, software engineering and more.`}
+        />
       </Head>
       <Themed.h1>{t('blog')}</Themed.h1>
       {allPosts.map((post) => (

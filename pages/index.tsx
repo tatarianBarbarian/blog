@@ -18,6 +18,10 @@ export default function Index({ allPosts, allTils }: Props) {
     <>
       <Head>
         <title>f-k.dev</title>
+        <meta
+          name="description"
+          content={`Welcome to Felix Khafizov personal website. Explore the projects and experience of a software developer. Contact Felix to learn more about his work and services.`}
+        />
       </Head>
       <>
         <Themed.h1>{t('title')}</Themed.h1>
