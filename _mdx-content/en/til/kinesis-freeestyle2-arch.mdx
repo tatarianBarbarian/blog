@@ -1,0 +1,67 @@
+---
+title: 'Kinesis Freestyle2: fn keys problem on Arch Linux'
+date: '2023-07-02'
+excerpt: 'A simple guide on how to make them work.'
+description: 'A simple guide on how to make Kinesis Freestyle2 fn keys work on Arch Linux.'
+---
+
+## The problem
+
+Some of the new owners of Kineis Freestyle2 keyboards can find that the Volume Up/Down, Mute, and Calculator buttons aren't working.
+
+Chris Waldon had [a deep dive](https://waldon.blog/2017/10/31/kinesis-freestyle-2-and-linux-part-1-debugging/) into the problem.
+
+He ended up with his driver, [kfreestyle2d](https://github.com/whereswaldon/kfreestyle2d).
+
+The problem is that on some systems driver is not starting correctly.
+
+As I found out, there are two problems:
+
+1. Loading `uinput` kernel module
+2. Tune permissions
+
+## The solution
+
+### Step 1: Load "uinput" kernel module
+
+Create a systemd service, that will load the module.
+
+Here's a config for the service, which is a config file at `/etc/systemd/system/uinput-load.service`:
+
+```conf
+[Unit]
+Description=Load uinput kernel module
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/modprobe uinput
+
+[Install]
+WantedBy=sysinit.target
+```
+
+Run `systemctl enable uinput-load{:sh}` to start automatically on startup.
+
+And let's ensure systemd will load driver after the kernel module.
+
+Add line to the `/etc/systemd/system/kfreestyle2d.service` to the `[Unit]` section:
+
+```conf
+After=uinput-load.service
+```
+
+### Step 2: Tune permissions
+
+Create `udev` rule at `/etc/udev/rules.d/99-uinput.rules`
+
+With following content:
+
+```conf
+KERNEL=="uinput", MODE="0660", GROUP="uinput"
+```
+
+The group should be the same as in `/etc/systemd/system/kfreestyle2d.service`
+
+Run `sudo udevadm control --reload-rules{:sh}`
+
+And then just the system.
