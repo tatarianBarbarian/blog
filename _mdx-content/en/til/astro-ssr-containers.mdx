@@ -1,0 +1,19 @@
+---
+title: 'Running Astro in SSR mode in containerized environments'
+date: '2024-03-09'
+excerpt: 'A trick to ensure it can accept requests'
+description: 'How to run Astro server in containers'
+---
+
+Astro has a SSR mode with some of the adapters, which makes Astro output not just
+a set of HTML pages, but Node.js server which generates HTML on every request.
+
+There is one thing to consider if you deploy it to Fly.io or Azure Web Apps environments -- don't forget to add `HOST=0.0.0.0` environment variable in run command.
+
+In my case, it was `start` script in `package.json` file:
+
+```json
+{
+  "start": "HOST=0.0.0.0 node ./dist/server/entry.mjs"
+}
+```
